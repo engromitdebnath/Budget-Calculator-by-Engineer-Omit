@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>মাসিক আয়, আসল খরচ ও ইনভেস্টমেন্ট ক্যালকুলেটর — Prepared by "OMIT DEBNATH"</title>
+  <title>মাসিক আয়, আসল খরচ, ধার শোধ ও ইনভেস্টমেন্ট ক্যালকুলেটর — Prepared by "OMIT DEBNATH"</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Inter & Hind Siliguri -->
@@ -22,41 +22,48 @@
 
     body {
       font-family: var(--font-sans);
-      background: radial-gradient(circle at 12% 10%, #0f172a 0%, #020617 55%, #090d16 100%);
+      background: radial-gradient(circle at 15% 10%, #111c38 0%, #030712 55%, #070c1a 100%);
       color: #f8fafc;
       min-height: 100vh;
     }
 
-    /* Subtle ambient mesh glow */
+    /* Vibrant glossy ambient mesh glow */
     .ambient-glow {
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 0;
       background:
-        radial-gradient(650px circle at 85% 12%, rgba(16, 185, 129, 0.11), transparent 60%),
-        radial-gradient(600px circle at 15% 80%, rgba(59, 130, 246, 0.11), transparent 60%),
-        radial-gradient(500px circle at 50% 45%, rgba(139, 92, 246, 0.06), transparent 65%);
+        radial-gradient(700px circle at 85% 10%, rgba(16, 185, 129, 0.16), transparent 60%),
+        radial-gradient(650px circle at 15% 78%, rgba(56, 189, 248, 0.16), transparent 60%),
+        radial-gradient(560px circle at 52% 45%, rgba(244, 63, 94, 0.12), transparent 65%),
+        radial-gradient(480px circle at 75% 85%, rgba(168, 85, 247, 0.1), transparent 65%);
     }
 
-    /* Glassmorphic Executive Cards */
+    /* Glossy Glassmorphic Cards */
     .glass-card {
-      background: rgba(15, 23, 42, 0.76);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.58), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+      background: linear-gradient(145deg, rgba(17, 28, 54, 0.86), rgba(9, 15, 31, 0.82));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      box-shadow:
+        0 22px 50px -15px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14);
     }
 
     .glass-subcard {
-      background: rgba(30, 41, 59, 0.55);
-      border: 1px solid rgba(148, 163, 184, 0.13);
+      background: linear-gradient(145deg, rgba(30, 44, 78, 0.68), rgba(15, 23, 42, 0.65));
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
       transition: all 0.22s ease;
     }
 
-    .glass-subcard:hover {
-      border-color: rgba(148, 163, 184, 0.3);
-      background: rgba(30, 41, 59, 0.78);
+    .glass-subcard:hover,
+    .glass-subcard.active-ring-card {
+      border-color: rgba(255, 255, 255, 0.45);
+      background: linear-gradient(145deg, rgba(38, 56, 98, 0.88), rgba(19, 30, 54, 0.85));
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px -8px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.18);
     }
 
     /* Custom Precision Range Sliders */
@@ -64,9 +71,9 @@
       -webkit-appearance: none;
       appearance: none;
       width: 100%;
-      height: 6px;
+      height: 7px;
       border-radius: 999px;
-      background: rgba(51, 65, 85, 0.9);
+      background: rgba(51, 65, 85, 0.95);
       outline: none;
       cursor: pointer;
     }
@@ -74,19 +81,19 @@
     input[type="range"].wealth-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 18px;
-      height: 18px;
+      width: 19px;
+      height: 19px;
       border-radius: 50%;
       background: #ffffff;
       border: 3px solid var(--slider-accent, #10b981);
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 0 14px var(--slider-accent, rgba(16, 185, 129, 0.8));
       cursor: grab;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
     input[type="range"].wealth-slider::-webkit-slider-thumb:hover {
-      transform: scale(1.16);
-      box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.12);
+      transform: scale(1.18);
+      box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.16);
     }
 
     input[type="range"].wealth-slider::-webkit-slider-thumb:active {
@@ -95,17 +102,16 @@
     }
 
     input[type="range"].wealth-slider::-moz-range-thumb {
-      width: 18px;
-      height: 18px;
+      width: 19px;
+      height: 19px;
       border-radius: 50%;
       background: #ffffff;
       border: 3px solid var(--slider-accent, #10b981);
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 0 14px var(--slider-accent, rgba(16, 185, 129, 0.8));
       cursor: grab;
       transition: transform 0.15s ease;
     }
 
-    /* Hide native number spinners */
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
       -webkit-appearance: none;
@@ -115,13 +121,44 @@
       -moz-appearance: textfield;
     }
 
-    /* Smooth SVG Donut transitions */
-    .donut-segment {
-      transition: stroke-dasharray 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                  stroke-dashoffset 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    .mini-donut-arc {
+      cursor: pointer;
+      transition: stroke-dasharray 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                  stroke-width 0.24s ease,
+                  filter 0.24s ease;
     }
 
-    /* Toast animation */
+    .mini-donut-arc:hover,
+    .mini-donut-arc.is-selected {
+      stroke-width: 15;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.45));
+    }
+
+    .flow-bar-anim {
+      transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.78; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .pulse-node {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: pulseGlow 2.1s ease-in-out infinite;
+    }
+
+    @keyframes popStat {
+      0% { transform: scale(0.9); opacity: 0.5; }
+      65% { transform: scale(1.06); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .stat-pop {
+      animation: popStat 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
     @keyframes slideUpFade {
       from { opacity: 0; transform: translate(-50%, 16px); }
       to { opacity: 1; transform: translate(-50%, 0); }
@@ -131,31 +168,47 @@
     }
   </style>
 </head>
-<body class="antialiased selection:bg-emerald-500/30 selection:text-emerald-200">
+<body class="antialiased selection:bg-emerald-400/30 selection:text-emerald-200">
   <div class="ambient-glow"></div>
 
   <!-- Toast Notification -->
-  <div id="toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-2xl bg-slate-900 text-emerald-300 border border-emerald-400/40 shadow-2xl text-xs sm:text-sm font-bold toast-show">
+  <div id="toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-2xl bg-slate-900 text-emerald-300 border border-emerald-400/50 shadow-2xl text-xs sm:text-sm font-bold toast-show">
     <span id="toastText">Done!</span>
   </div>
 
   <!-- Main Container -->
   <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
 
-    <!-- Executive Header -->
+    <!-- Executive Header with Locked Brand Logo -->
     <header class="glass-card rounded-3xl p-6 sm:p-8 mb-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
-      <div>
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/25 text-emerald-300 text-xs font-semibold tracking-wide mb-3">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          PERSONAL WEALTH & CASHFLOW ENGINE (BDT)
+      <div class="flex items-start sm:items-center gap-4">
+        <!-- Locked Brand Logo Badge (No public upload/change) -->
+        <div id="headerLogoBadge" title='Official Logo — Prepared by "OMIT DEBNATH"'
+          class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/95 p-1.5 border-2 border-cyan-400/60 shadow-[0_0_24px_rgba(34,211,238,0.3)] flex items-center justify-center shrink-0 overflow-hidden select-none">
+          <img id="brandLogoImg" src="" alt="OMIT DEBNATH Logo" class="hidden w-full h-full object-contain" />
+          <div id="brandLogoPlaceholder" class="flex flex-col items-center justify-center text-center leading-tight">
+            <span class="text-base sm:text-lg font-extrabold tracking-tight text-slate-900">
+              O<span class="text-[#ea580c]">D</span>
+            </span>
+            <span class="text-[8px] font-extrabold uppercase tracking-wider text-teal-700 mt-0.5">OMIT DEBNATH</span>
+          </div>
         </div>
-        <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight leading-snug">
-          মাসিক আয়, আসল খরচ ও ইনভেস্টমেন্ট ক্যালকুলেটর
-        </h1>
-        <p class="mt-1.5 text-sm sm:text-base text-slate-300 font-medium flex items-center gap-2">
-          <i class="fa-solid fa-pen-nib text-emerald-400 text-xs"></i>
-          <span>Prepared by <strong class="text-white font-bold tracking-wide">"OMIT DEBNATH"</strong></span>
-        </p>
+
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-400/35 text-emerald-300 text-xs font-bold tracking-wide mb-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            SHINY WEALTH & CASHFLOW ENGINE (BDT)
+          </div>
+          <h1 class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight leading-snug">
+            মাসিক আয়, আসল খরচ, ধার শোধ ও ইনভেস্টমেন্ট ক্যালকুলেটর
+          </h1>
+          <p class="mt-1 text-sm sm:text-base text-slate-300 font-medium flex flex-wrap items-center gap-2">
+            <span>Prepared by <strong class="text-white font-bold tracking-wide">"OMIT DEBNATH"</strong></span>
+            <span class="text-[11px] px-2 py-0.5 rounded-md bg-slate-800/90 text-cyan-300 border border-cyan-400/25 font-semibold">
+              <i class="fa-solid fa-lock mr-1 text-[10px]"></i>Locked Brand
+            </span>
+          </p>
+        </div>
       </div>
 
       <!-- Header Action Buttons -->
@@ -166,12 +219,12 @@
           Clear All (Blank)
         </button>
         <button id="copyGraphTopBtn" type="button"
-          class="px-4 py-2.5 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-200 border border-indigo-400/40 text-xs sm:text-sm font-bold transition flex items-center gap-2 cursor-pointer">
+          class="px-4 py-2.5 rounded-xl bg-fuchsia-500/20 hover:bg-fuchsia-500/30 text-fuchsia-200 border border-fuchsia-400/45 text-xs sm:text-sm font-bold transition flex items-center gap-2 cursor-pointer">
           <i class="fa-solid fa-image"></i>
           Copy Graph Image
         </button>
         <button id="sendMailTopBtn" type="button"
-          class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-emerald-500/20 transition flex items-center gap-2 cursor-pointer">
+          class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-400/25 transition flex items-center gap-2 cursor-pointer">
           <i class="fa-solid fa-paper-plane"></i>
           Send via Mail
         </button>
@@ -182,13 +235,13 @@
     <section class="glass-card rounded-3xl p-5 sm:p-6 mb-6 border-l-4 border-l-cyan-400">
       <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div class="flex items-center gap-2.5">
-          <span class="w-9 h-9 rounded-xl bg-cyan-500/15 text-cyan-300 flex items-center justify-center text-base border border-cyan-400/25">
+          <span class="w-9 h-9 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center text-base border border-cyan-400/35 shadow-[0_0_15px_rgba(34,211,238,0.2)]">
             <i class="fa-solid fa-coins"></i>
           </span>
           <div>
             <h2 class="text-sm sm:text-base font-bold text-white flex flex-wrap items-center gap-2">
               <span>কুইক কারেন্সি ক্যালকুলেটর (Quick Currency Converter)</span>
-              <span id="fxStatusBadge" class="text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-400/30">
+              <span id="fxStatusBadge" class="text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-200 border border-cyan-400/40">
                 Fetching Live Rate...
               </span>
             </h2>
@@ -201,7 +254,7 @@
         <!-- Quick Pair Pills + Refresh Live Rate -->
         <div class="flex flex-wrap items-center gap-1.5">
           <button type="button" data-pair="RMB-BDT"
-            class="pair-pill px-2.5 py-1 rounded-lg text-[11px] font-bold bg-cyan-500/20 text-cyan-200 border border-cyan-400/40 transition cursor-pointer">
+            class="pair-pill px-2.5 py-1 rounded-lg text-[11px] font-bold bg-cyan-500/25 text-cyan-200 border border-cyan-400/45 transition cursor-pointer">
             RMB → BDT
           </button>
           <button type="button" data-pair="RMB-USD"
@@ -217,7 +270,7 @@
             BDT → RMB
           </button>
           <button id="refreshFxBtn" type="button" title="Refresh Live Exchange Rates"
-            class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-400/30 transition cursor-pointer flex items-center gap-1">
+            class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-400/40 transition cursor-pointer flex items-center gap-1">
             <i id="refreshFxIcon" class="fa-solid fa-rotate"></i>
             Live Sync
           </button>
@@ -225,7 +278,6 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
-        <!-- Amount & From Currency -->
         <div class="md:col-span-4 flex items-center bg-slate-900/90 border border-slate-700/80 focus-within:border-cyan-400 rounded-2xl px-3.5 py-2.5">
           <input type="number" id="fxAmount" placeholder="Enter amount" min="0" step="any"
             class="w-full bg-transparent text-base sm:text-lg font-extrabold text-white placeholder-slate-500 outline-none" />
@@ -239,7 +291,6 @@
           </select>
         </div>
 
-        <!-- Swap Button -->
         <div class="md:col-span-1 flex justify-center">
           <button id="fxSwapBtn" type="button" title="Swap Currencies"
             class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-cyan-500/20 text-cyan-300 border border-slate-600/50 hover:border-cyan-400/50 flex items-center justify-center transition cursor-pointer">
@@ -247,7 +298,6 @@
           </button>
         </div>
 
-        <!-- Converted Result & To Currency -->
         <div class="md:col-span-4 flex items-center bg-slate-900/90 border border-slate-700/80 rounded-2xl px-3.5 py-2.5">
           <input type="text" id="fxResult" readonly placeholder="0.00"
             class="w-full bg-transparent text-base sm:text-lg font-extrabold text-emerald-400 placeholder-slate-500 outline-none" />
@@ -261,7 +311,6 @@
           </select>
         </div>
 
-        <!-- Editable Exchange Rate & Apply to Income -->
         <div class="md:col-span-3 flex flex-col sm:flex-row md:flex-col gap-1.5">
           <div class="flex items-center justify-between bg-slate-900/75 border border-slate-700/70 rounded-xl px-3 py-1.5 text-xs">
             <span class="text-slate-400 font-medium" id="fxRateLabel">1 RMB =</span>
@@ -272,73 +321,69 @@
             </div>
           </div>
           <button id="applyFxToIncomeBtn" type="button"
-            class="w-full py-1.5 px-3 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-400/30 text-[11px] font-bold transition flex items-center justify-center gap-1.5 cursor-pointer">
+            class="w-full py-1.5 px-3 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-400/35 text-[11px] font-bold transition flex items-center justify-center gap-1.5 cursor-pointer">
             <i class="fa-solid fa-arrow-down-to-bracket"></i>
-            Use BDT in Monthly Income
+            Use BDT in Base Income
           </button>
         </div>
       </div>
     </section>
 
-    <!-- 4 Executive KPI Cards -->
+    <!-- 4 Shiny KPI Cards (Expense & Debt Red) -->
     <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
-      <!-- KPI 1: True Monthly Expenses -->
-      <div class="glass-card rounded-2xl p-5 border-t-2 border-t-amber-400/80">
+      <div class="glass-card rounded-2xl p-5 border-t-2 border-t-red-500 shadow-[0_0_25px_rgba(239,68,68,0.12)]">
         <div class="flex items-center justify-between mb-2">
           <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">True Monthly Expenses</span>
-          <span class="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-300 flex items-center justify-center text-sm">
+          <span class="w-8 h-8 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center text-sm">
             <i class="fa-solid fa-receipt"></i>
           </span>
         </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight" id="kpiTrueExp">৳0</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-red-400 tracking-tight" id="kpiTrueExp">৳0</div>
         <div class="mt-2 flex items-center justify-between text-xs">
           <span class="text-slate-400">আসল মাসিক খরচ</span>
-          <span id="kpiTrueExpPct" class="px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-300 font-bold">0.0%</span>
+          <span id="kpiTrueExpPct" class="px-2 py-0.5 rounded-md bg-red-500/20 text-red-300 font-bold">0.0%</span>
         </div>
       </div>
 
-      <!-- KPI 2: Fixed Investments -->
-      <div class="glass-card rounded-2xl p-5 border-t-2 border-t-blue-500/90">
+      <div class="glass-card rounded-2xl p-5 border-t-2 border-t-rose-500 shadow-[0_0_25px_rgba(244,63,94,0.12)]">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Last Month Debt / ধার</span>
+          <span class="w-8 h-8 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-sm">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+          </span>
+        </div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-rose-400 tracking-tight" id="kpiDebtRepay">৳0</div>
+        <div class="mt-2 flex items-center justify-between text-xs">
+          <span class="text-slate-400">গত মাসের ধার পরিশোধ</span>
+          <span id="kpiDebtRepayPct" class="px-2 py-0.5 rounded-md bg-rose-500/20 text-rose-300 font-bold">0.0%</span>
+        </div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-5 border-t-2 border-t-sky-400 shadow-[0_0_25px_rgba(56,189,248,0.12)]">
         <div class="flex items-center justify-between mb-2">
           <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Fixed Investments</span>
-          <span class="w-8 h-8 rounded-xl bg-blue-500/15 text-blue-300 flex items-center justify-center text-sm">
+          <span class="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-300 flex items-center justify-center text-sm">
             <i class="fa-solid fa-building-columns"></i>
           </span>
         </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-blue-300 tracking-tight" id="kpiFixedInv">৳0</div>
+        <div class="text-2xl sm:text-3xl font-extrabold text-sky-300 tracking-tight" id="kpiFixedInv">৳0</div>
         <div class="mt-2 flex items-center justify-between text-xs">
-          <span class="text-slate-400">ফ্ল্যাট + DPS / SIP</span>
-          <span id="kpiFixedInvPct" class="px-2 py-0.5 rounded-md bg-blue-500/15 text-blue-300 font-bold">0.0%</span>
+          <span class="text-slate-400">ফ্ল্যাট / DPS / SIP</span>
+          <span id="kpiFixedInvPct" class="px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-200 font-bold">0.0%</span>
         </div>
       </div>
 
-      <!-- KPI 3: Net Free Surplus -->
-      <div class="glass-card rounded-2xl p-5 border-t-2 border-t-emerald-400/90">
+      <div class="glass-card rounded-2xl p-5 border-t-2 border-t-emerald-400 shadow-[0_0_25px_rgba(16,185,129,0.14)]">
         <div class="flex items-center justify-between mb-2">
           <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Net Free Surplus</span>
-          <span class="w-8 h-8 rounded-xl bg-emerald-500/15 text-emerald-300 flex items-center justify-center text-sm">
+          <span class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center text-sm">
             <i class="fa-solid fa-wallet"></i>
           </span>
         </div>
         <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 tracking-tight" id="kpiFreeSurplus">৳0</div>
         <div class="mt-2 flex items-center justify-between text-xs">
-          <span class="text-slate-400">নতুন ইনভেস্ট / সেভিংস</span>
-          <span id="kpiFreeSurplusPct" class="px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-300 font-bold">0.0%</span>
-        </div>
-      </div>
-
-      <!-- KPI 4: Total Savings + Investment Rate -->
-      <div class="glass-card rounded-2xl p-5 border-t-2 border-t-teal-400/90">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Total Savings + Invest</span>
-          <span class="w-8 h-8 rounded-xl bg-teal-500/15 text-teal-300 flex items-center justify-center text-sm">
-            <i class="fa-solid fa-chart-line"></i>
-          </span>
-        </div>
-        <div class="text-2xl sm:text-3xl font-extrabold text-teal-300 tracking-tight" id="kpiTotalSavRate">0.0%</div>
-        <div class="mt-2 flex items-center justify-between text-xs">
-          <span class="text-slate-400">মোট সম্পদ ও সঞ্চয়</span>
-          <span id="kpiTotalSavAmt" class="px-2 py-0.5 rounded-md bg-teal-500/15 text-teal-200 font-bold">৳0</span>
+          <span class="text-slate-400">হাতে থাকা লিকুইড / অবশিষ্ট</span>
+          <span id="kpiFreeSurplusPct" class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-bold">0.0%</span>
         </div>
       </div>
     </section>
@@ -346,7 +391,7 @@
     <!-- Main 2-Column Workspace -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
-      <!-- Left Column (7 cols): Income + Dual-Sync Interactive Controls -->
+      <!-- Left Column (7 cols) -->
       <div class="lg:col-span-7 space-y-6">
 
         <!-- Monthly Income Control Card -->
@@ -354,11 +399,10 @@
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
             <div>
               <label for="incomeInput" class="block text-sm font-bold text-white">
-                মাসিক আয় (Monthly Income in BDT)
+                মাসিক আয় ও অতিরিক্ত আয় (Monthly & Extra Income in BDT)
               </label>
-              <p class="text-xs text-slate-400 mt-0.5">আপনার মাসিক আয় BDT-তে টাইপ করুন অথবা কুইক বাটন চাপুন</p>
+              <p class="text-xs text-slate-400 mt-0.5">মূল আয়, গত মাসের অতিরিক্ত আয় থেকে অবশিষ্ট ও এক্সট্রা সোর্স যোগ করলে মোট আয় অটো আপডেট হবে</p>
             </div>
-            <!-- Quick Presets -->
             <div class="flex flex-wrap items-center gap-2">
               <button type="button" data-income="50000"
                 class="preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600/40 transition cursor-pointer">
@@ -383,78 +427,151 @@
             <span class="text-xl font-bold text-emerald-400 mr-3">৳</span>
             <input type="number" id="incomeInput" value="" placeholder="0" min="0" step="500"
               class="w-full bg-transparent text-2xl sm:text-3xl font-extrabold text-white placeholder-slate-600 outline-none tracking-tight" />
-            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider ml-2">BDT / Month</span>
+            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider ml-2">Base Income</span>
+          </div>
+
+          <div class="mt-3.5 glass-subcard rounded-2xl p-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
+            <div>
+              <label for="prevExtraCarryInput" class="block text-xs sm:text-sm font-bold text-emerald-300">
+                গত মাসের এক্সট্রা ইনকাম থেকে অবশিষ্ট (Last Month Extra Carryover)
+              </label>
+              <p class="text-[11px] text-slate-400">গত মাসের অতিরিক্ত আয় থেকে যা এই মাসে যুক্ত হচ্ছে</p>
+            </div>
+            <div class="flex items-center bg-slate-900/90 border border-slate-700/80 focus-within:border-emerald-400 rounded-xl px-3 py-2 w-full sm:w-44">
+              <span class="text-emerald-400 font-bold text-sm mr-1.5">৳</span>
+              <input type="number" id="prevExtraCarryInput" value="" placeholder="0" min="0" step="500"
+                class="w-full bg-transparent text-right text-sm sm:text-base font-extrabold text-white placeholder-slate-600 outline-none" />
+            </div>
+          </div>
+
+          <div class="mt-3.5">
+            <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
+              <span class="font-semibold text-slate-300">অতিরিক্ত আয়ের সোর্স (Extra Income Sources)</span>
+              <span id="extraSourcesTotalBadge" class="font-bold text-emerald-300">+৳0</span>
+            </div>
+            <div id="extraIncomeItemsContainer" class="space-y-2"></div>
+
+            <form id="addExtraIncomeForm" class="mt-2.5 flex flex-col sm:flex-row gap-2">
+              <input type="text" id="newExtraSrcName" placeholder="এক্সট্রা ইনকাম সোর্স (যেমন: Freelance / Bonus / Dividend)"
+                class="flex-1 bg-slate-900/80 border border-slate-700/70 focus:border-emerald-400 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 outline-none" />
+              <div class="flex gap-2">
+                <div class="flex items-center bg-slate-900/80 border border-slate-700/70 focus-within:border-emerald-400 rounded-xl px-2.5 py-2 w-28 sm:w-32">
+                  <span class="text-emerald-400 font-bold text-xs mr-1">৳</span>
+                  <input type="number" id="newExtraSrcAmt" placeholder="0" min="0" step="500"
+                    class="w-full bg-transparent text-xs font-bold text-white placeholder-slate-600 outline-none" />
+                </div>
+                <button type="submit"
+                  class="px-3.5 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-400/30 text-xs font-bold transition whitespace-nowrap cursor-pointer">
+                  <i class="fa-solid fa-plus mr-1"></i> Add
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="mt-4 pt-3.5 border-t border-slate-700/60 flex items-center justify-between">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Total Monthly Income</span>
+              <p class="text-[11px] text-slate-400">Base + Last Month Extra + Extra Sources</p>
+            </div>
+            <div id="totalCombinedIncomeDisplay" class="text-xl sm:text-2xl font-extrabold text-emerald-400">৳0</div>
           </div>
         </div>
 
-        <!-- Category 1: True Monthly Expenses -->
+        <!-- Category 1: True Monthly Expenses (RED THEME) -->
         <div class="glass-card rounded-3xl p-6">
           <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-5 border-b border-slate-700/60">
             <div class="flex items-center gap-3">
-              <span class="w-3 h-3 rounded-full bg-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.7)]"></span>
+              <span class="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_12px_rgba(239,68,68,0.95)]"></span>
               <div>
                 <h2 class="text-base sm:text-lg font-bold text-white">আসল মাসিক খরচ (True Monthly Expenses)</h2>
                 <p class="text-xs text-slate-400">যে খরচগুলো সরাসরি ব্যয় হয় (অ্যাসেট তৈরি করে না)</p>
               </div>
             </div>
             <div class="text-right">
-              <div class="text-lg font-extrabold text-amber-300" id="catExpTotal">৳0</div>
+              <div class="text-lg font-extrabold text-red-400" id="catExpTotal">৳0</div>
               <div class="text-xs font-semibold text-slate-400" id="catExpPct">আয়ের 0.0%</div>
             </div>
           </div>
 
-          <!-- Dynamic Expense Items Container -->
           <div id="expenseItemsContainer" class="space-y-4"></div>
 
-          <!-- Add Custom Expense Item -->
           <form id="addExpenseForm" class="mt-5 pt-4 border-t border-slate-800 flex flex-col sm:flex-row gap-2.5">
             <input type="text" id="newExpName" placeholder="নতুন খরচের নাম (যেমন: Utility / House Rent / Medical)"
-              class="flex-1 bg-slate-900/80 border border-slate-700/70 focus:border-amber-400 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white placeholder-slate-500 outline-none" />
+              class="flex-1 bg-slate-900/80 border border-slate-700/70 focus:border-red-400 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white placeholder-slate-500 outline-none" />
             <div class="flex gap-2">
-              <div class="flex items-center bg-slate-900/80 border border-slate-700/70 focus-within:border-amber-400 rounded-xl px-3 py-2 w-32 sm:w-36">
-                <span class="text-amber-400 font-bold text-xs mr-1.5">৳</span>
+              <div class="flex items-center bg-slate-900/80 border border-slate-700/70 focus-within:border-red-400 rounded-xl px-3 py-2 w-32 sm:w-36">
+                <span class="text-red-400 font-bold text-xs mr-1.5">৳</span>
                 <input type="number" id="newExpAmt" placeholder="0" min="0" step="500"
                   class="w-full bg-transparent text-xs sm:text-sm font-bold text-white placeholder-slate-600 outline-none" />
               </div>
               <button type="submit"
-                class="px-4 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-400/30 text-xs sm:text-sm font-bold transition whitespace-nowrap cursor-pointer">
+                class="px-4 py-2 rounded-xl bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-400/30 text-xs sm:text-sm font-bold transition whitespace-nowrap cursor-pointer">
                 <i class="fa-solid fa-plus mr-1"></i> Add
               </button>
             </div>
           </form>
         </div>
 
-        <!-- Category 2: Fixed Investments & Asset Commitments -->
+        <!-- Category: Last Month Borrowed / ধার শোধ (RED THEME) -->
+        <div class="glass-card rounded-3xl p-6 border-l-4 border-l-red-500">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-slate-700/60">
+            <div class="flex items-center gap-3">
+              <span class="w-3 h-3 rounded-full bg-rose-500 shadow-[0_0_12px_rgba(244,63,94,0.95)]"></span>
+              <div>
+                <h2 class="text-base sm:text-lg font-bold text-white">গত মাসের ধার পরিশোধ (Last Month Borrowed / ধার)</h2>
+                <p class="text-xs text-slate-400">গত মাসে কারো কাছ থেকে ধার নিয়ে থাকলে এই মাসে শোধের পরিমাণ দিন</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-lg font-extrabold text-rose-400" id="catDebtTotal">৳0</div>
+              <div class="text-xs font-semibold text-slate-400" id="catDebtPct">আয়ের 0.0%</div>
+            </div>
+          </div>
+
+          <div class="glass-subcard rounded-2xl p-4">
+            <div class="flex items-center justify-between gap-2 mb-2.5">
+              <span class="text-xs sm:text-sm font-semibold text-rose-200">ধার পরিশোধের অ্যামাউন্ট</span>
+              <div class="flex items-center bg-slate-900 border border-rose-500/40 rounded-xl px-2.5 py-1 w-36">
+                <span class="text-xs font-bold text-rose-400 mr-1">৳</span>
+                <input type="number" id="debtRepayNum" min="0" value="0" step="500"
+                  class="w-full bg-transparent text-right text-xs sm:text-sm font-extrabold text-white outline-none" />
+              </div>
+            </div>
+            <input type="range" id="debtRepayRange" min="0" max="150000" step="1000" value="0"
+              style="--slider-accent: #f43f5e;"
+              class="wealth-slider" />
+          </div>
+        </div>
+
+        <!-- Category 2: Fixed Investments & Asset Commitments (BLUE THEME) -->
         <div class="glass-card rounded-3xl p-6">
           <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-5 border-b border-slate-700/60">
             <div class="flex items-center gap-3">
-              <span class="w-3 h-3 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.8)]"></span>
+              <span class="w-3 h-3 rounded-full bg-sky-400 shadow-[0_0_12px_rgba(56,189,248,0.9)]"></span>
               <div>
                 <h2 class="text-base sm:text-lg font-bold text-white">ফিক্সড ইনভেস্টমেন্ট (Fixed Investments)</h2>
                 <p class="text-xs text-slate-400">ফ্ল্যাট, DPS ও নিয়মিত সম্পদ গড়ার কমিটমেন্ট</p>
               </div>
             </div>
             <div class="text-right">
-              <div class="text-lg font-extrabold text-blue-300" id="catInvTotal">৳0</div>
+              <div class="text-lg font-extrabold text-sky-300" id="catInvTotal">৳0</div>
               <div class="text-xs font-semibold text-slate-400" id="catInvPct">আয়ের 0.0%</div>
             </div>
           </div>
 
-          <!-- Dynamic Investment Items Container -->
           <div id="investItemsContainer" class="space-y-4"></div>
 
-          <!-- Add Custom Investment Item -->
           <form id="addInvestForm" class="mt-5 pt-4 border-t border-slate-800 flex flex-col sm:flex-row gap-2.5">
-            <input type="text" id="newInvName" placeholder="নতুন ইনভেস্টমেন্ট (যেমন: Ekush SIP / Sanchaypatra / FDR)"
-              class="flex-1 bg-slate-900/80 border border-slate-700/70 focus:border-blue-400 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white placeholder-slate-500 outline-none" />
+            <input type="text" id="newInvName" placeholder="নতুন ইনভেস্টমেন্ট (যেমন: SIP / Sanchaypatra / FDR)"
+              class="flex-1 bg-slate-900/80 border border-slate-700/70 focus:border-sky-400 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white placeholder-slate-500 outline-none" />
             <div class="flex gap-2">
-              <div class="flex items-center bg-slate-900/80 border border-slate-700/70 focus-within:border-blue-400 rounded-xl px-3 py-2 w-32 sm:w-36">
-                <span class="text-blue-400 font-bold text-xs mr-1.5">৳</span>
+              <div class="flex items-center bg-slate-900/80 border border-slate-700/70 focus-within:border-sky-400 rounded-xl px-3 py-2 w-32 sm:w-36">
+                <span class="text-sky-400 font-bold text-xs mr-1.5">৳</span>
                 <input type="number" id="newInvAmt" placeholder="0" min="0" step="500"
                   class="w-full bg-transparent text-xs sm:text-sm font-bold text-white placeholder-slate-600 outline-none" />
               </div>
               <button type="submit"
-                class="px-4 py-2 rounded-xl bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 border border-blue-400/30 text-xs sm:text-sm font-bold transition whitespace-nowrap cursor-pointer">
+                class="px-4 py-2 rounded-xl bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 border border-sky-400/30 text-xs sm:text-sm font-bold transition whitespace-nowrap cursor-pointer">
                 <i class="fa-solid fa-plus mr-1"></i> Add
               </button>
             </div>
@@ -462,127 +579,131 @@
         </div>
       </div>
 
-      <!-- Right Column (5 cols): Visual Analytics, Donut Chart & Graph Copy/Export -->
+      <!-- Right Column (5 cols) -->
       <div class="lg:col-span-5 space-y-6">
 
-        <!-- Visual Breakdown Card (Target for Graph Copy/Download) -->
         <div class="glass-card rounded-3xl p-6 sticky top-6">
 
           <!-- Capturable Graph Snapshot Area -->
-          <div id="graphCaptureArea" class="rounded-2xl p-3 sm:p-4 bg-[#0b1222]">
-            <div class="flex items-center justify-between mb-4">
-              <div>
-                <h2 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-                  <i class="fa-solid fa-chart-pie text-emerald-400"></i>
-                  লাইভ সম্পদ ও খরচ বিশ্লেষণ
-                </h2>
-                <p class="text-[11px] text-slate-400 mt-0.5">
-                  Income: <span id="graphIncomeLabel" class="text-slate-200 font-bold">৳0</span> • Prepared by "OMIT DEBNATH"
-                </p>
+          <div id="graphCaptureArea" class="rounded-2xl p-3.5 sm:p-4 bg-gradient-to-b from-[#0e1933] to-[#080e1c] border border-slate-700/60">
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <div class="flex items-center gap-2.5">
+                <img id="graphLogoImg" src="" alt="Brand Logo" class="hidden w-9 h-9 rounded-lg object-contain bg-white p-0.5 shrink-0" />
+                <div>
+                  <h2 class="text-base font-extrabold text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-sparkles text-amber-300 text-sm"></i>
+                    আলাদা সার্কেল বিশ্লেষণ
+                  </h2>
+                  <p class="text-[11px] text-slate-400">
+                    Income: <span id="graphIncomeLabel" class="text-emerald-300 font-bold">৳0</span> • "OMIT DEBNATH"
+                  </p>
+                </div>
               </div>
-              <span class="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+              <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-400/30">
                 BDT (৳)
               </span>
             </div>
 
-            <!-- Sleek Segmented Horizontal Stacked Bar -->
-            <div class="mb-5">
-              <div class="flex justify-between text-xs font-semibold text-slate-300 mb-2">
-                <span>মাসিক আয়ের ১০০% বণ্টন</span>
-                <span id="barStatusLabel" class="text-slate-400">Awaiting Input</span>
-              </div>
-              <div class="w-full h-4 rounded-full bg-slate-800 overflow-hidden flex p-0.5 gap-0.5 border border-slate-700/70">
-                <div id="segExp" class="h-full bg-amber-400 rounded-l-full transition-all duration-300" style="width: 0%;" title="True Expenses"></div>
-                <div id="segFixed" class="h-full bg-blue-500 transition-all duration-300" style="width: 0%;" title="Fixed Investments"></div>
-                <div id="segFree" class="h-full bg-emerald-400 rounded-r-full transition-all duration-300" style="width: 0%;" title="Net Free Surplus"></div>
-              </div>
+            <div id="focusBanner" class="mb-3 px-3 py-2 rounded-xl bg-slate-900/95 border border-slate-700/80 flex items-center justify-between text-xs">
+              <span class="text-slate-400">সার্কেলে ক্লিক বা হোভার করুন:</span>
+              <span id="focusBannerText" class="font-extrabold text-emerald-300 stat-pop">হাতে অবশিষ্ট: 0.0% (৳0)</span>
             </div>
 
-            <!-- Interactive SVG Donut Chart -->
-            <div class="relative flex items-center justify-center my-3">
-              <svg class="w-52 h-52 sm:w-60 sm:h-60 -rotate-90 transform" viewBox="0 0 200 200">
-                <!-- Background Track -->
-                <circle cx="100" cy="100" r="76" fill="transparent" stroke="rgba(51, 65, 85, 0.45)" stroke-width="22" />
-                <!-- Segment 1: True Expenses (Amber) -->
-                <circle id="donutExp" class="donut-segment" cx="100" cy="100" r="76" fill="transparent"
-                  stroke="#fbbf24" stroke-width="22" stroke-linecap="butt"
-                  stroke-dasharray="0 477.52" stroke-dashoffset="0" />
-                <!-- Segment 2: Fixed Investments (Royal Blue) -->
-                <circle id="donutFixed" class="donut-segment" cx="100" cy="100" r="76" fill="transparent"
-                  stroke="#3b82f6" stroke-width="22" stroke-linecap="butt"
-                  stroke-dasharray="0 477.52" stroke-dashoffset="0" />
-                <!-- Segment 3: Net Free Surplus (Emerald) -->
-                <circle id="donutFree" class="donut-segment" cx="100" cy="100" r="76" fill="transparent"
-                  stroke="#34d399" stroke-width="22" stroke-linecap="butt"
-                  stroke-dasharray="0 477.52" stroke-dashoffset="0" />
-              </svg>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5">
 
-              <!-- Center Callout inside Donut -->
-              <div class="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none px-8">
-                <span class="text-[11px] uppercase tracking-wider font-semibold text-slate-400">Savings + Invest</span>
-                <span id="donutCenterPct" class="text-2xl sm:text-3xl font-extrabold text-white mt-0.5">0.0%</span>
-                <span id="donutCenterAmt" class="text-xs font-bold text-emerald-400 mt-0.5">৳0</span>
-              </div>
-            </div>
-
-            <!-- Detailed Legend Breakdown -->
-            <div class="space-y-2.5 mt-4">
-              <div class="glass-subcard rounded-xl p-3 flex items-center justify-between">
-                <div class="flex items-center gap-2.5">
-                  <span class="w-3 h-3 rounded-full bg-amber-400"></span>
-                  <div>
-                    <div class="text-xs sm:text-sm font-semibold text-white">আসল মাসিক খরচ</div>
-                    <div class="text-[11px] text-slate-400">True Monthly Expenses</div>
+              <div data-circle="exp" class="circle-card glass-subcard rounded-2xl p-3 flex items-center justify-between gap-3 cursor-pointer">
+                <div class="relative w-20 h-20 shrink-0 flex items-center justify-center">
+                  <svg class="w-20 h-20 -rotate-90 transform" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="38" fill="transparent" stroke="rgba(51, 65, 85, 0.45)" stroke-width="11" />
+                    <circle id="ringExp" data-circle="exp" class="mini-donut-arc" cx="50" cy="50" r="38" fill="transparent"
+                      stroke="#ef4444" stroke-width="11" stroke-linecap="round"
+                      stroke-dasharray="0 238.76" />
+                  </svg>
+                  <span id="ringExpPctCenter" class="absolute text-[11px] font-extrabold text-red-400 pointer-events-none">0.0%</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-500 shadow-[0_0_8px_#ef4444]"></span>
+                    <span class="text-xs sm:text-sm font-bold text-white truncate">খরচ (True Expense)</span>
                   </div>
-                </div>
-                <div class="text-right">
-                  <div id="legExpAmt" class="text-xs sm:text-sm font-bold text-amber-300">৳0</div>
-                  <div id="legExpPct" class="text-[11px] font-semibold text-slate-400">0.0%</div>
+                  <div id="ringExpAmt" class="text-base font-extrabold text-red-400 mt-0.5">৳0</div>
+                  <div id="ringExpNote" class="text-[11px] text-slate-400">আয়ের 0.0% খরচ</div>
                 </div>
               </div>
 
-              <div class="glass-subcard rounded-xl p-3 flex items-center justify-between">
-                <div class="flex items-center gap-2.5">
-                  <span class="w-3 h-3 rounded-full bg-blue-500"></span>
-                  <div>
-                    <div class="text-xs sm:text-sm font-semibold text-white">ফিক্সড ইনভেস্টমেন্ট</div>
-                    <div class="text-[11px] text-slate-400">Flat + DPS & Commitments</div>
-                  </div>
+              <div data-circle="debt" class="circle-card glass-subcard rounded-2xl p-3 flex items-center justify-between gap-3 cursor-pointer">
+                <div class="relative w-20 h-20 shrink-0 flex items-center justify-center">
+                  <svg class="w-20 h-20 -rotate-90 transform" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="38" fill="transparent" stroke="rgba(51, 65, 85, 0.45)" stroke-width="11" />
+                    <circle id="ringDebt" data-circle="debt" class="mini-donut-arc" cx="50" cy="50" r="38" fill="transparent"
+                      stroke="#dc2626" stroke-width="11" stroke-linecap="round"
+                      stroke-dasharray="0 238.76" />
+                  </svg>
+                  <span id="ringDebtPctCenter" class="absolute text-[11px] font-extrabold text-rose-400 pointer-events-none">0.0%</span>
                 </div>
-                <div class="text-right">
-                  <div id="legFixedAmt" class="text-xs sm:text-sm font-bold text-blue-300">৳0</div>
-                  <div id="legFixedPct" class="text-[11px] font-semibold text-slate-400">0.0%</div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e]"></span>
+                    <span class="text-xs sm:text-sm font-bold text-white truncate">গত মাসের ধার শোধ</span>
+                  </div>
+                  <div id="ringDebtAmt" class="text-base font-extrabold text-rose-400 mt-0.5">৳0</div>
+                  <div id="ringDebtNote" class="text-[11px] text-slate-400">ধার পরিশোধ আয়ের 0.0%</div>
                 </div>
               </div>
 
-              <div class="glass-subcard rounded-xl p-3 flex items-center justify-between">
-                <div class="flex items-center gap-2.5">
-                  <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
-                  <div>
-                    <div class="text-xs sm:text-sm font-semibold text-white">নিট ফ্রি সারপ্লাস</div>
-                    <div class="text-[11px] text-slate-400">New Invest / Liquid Savings</div>
-                  </div>
+              <div data-circle="fixed" class="circle-card glass-subcard rounded-2xl p-3 flex items-center justify-between gap-3 cursor-pointer">
+                <div class="relative w-20 h-20 shrink-0 flex items-center justify-center">
+                  <svg class="w-20 h-20 -rotate-90 transform" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="38" fill="transparent" stroke="rgba(51, 65, 85, 0.45)" stroke-width="11" />
+                    <circle id="ringFixed" data-circle="fixed" class="mini-donut-arc" cx="50" cy="50" r="38" fill="transparent"
+                      stroke="#38bdf8" stroke-width="11" stroke-linecap="round"
+                      stroke-dasharray="0 238.76" />
+                  </svg>
+                  <span id="ringFixedPctCenter" class="absolute text-[11px] font-extrabold text-sky-300 pointer-events-none">0.0%</span>
                 </div>
-                <div class="text-right">
-                  <div id="legFreeAmt" class="text-xs sm:text-sm font-bold text-emerald-300">৳0</div>
-                  <div id="legFreePct" class="text-[11px] font-semibold text-slate-400">0.0%</div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-sky-400 shadow-[0_0_8px_#38bdf8]"></span>
+                    <span class="text-xs sm:text-sm font-bold text-white truncate">ফিক্সড ইনভেস্টমেন্ট</span>
+                  </div>
+                  <div id="ringFixedAmt" class="text-base font-extrabold text-sky-300 mt-0.5">৳0</div>
+                  <div id="ringFixedNote" class="text-[11px] text-slate-400">Flat + DPS আয়ের 0.0%</div>
                 </div>
               </div>
+
+              <div data-circle="free" class="circle-card glass-subcard rounded-2xl p-3 flex items-center justify-between gap-3 cursor-pointer">
+                <div class="relative w-20 h-20 shrink-0 flex items-center justify-center">
+                  <svg class="w-20 h-20 -rotate-90 transform" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="38" fill="transparent" stroke="rgba(51, 65, 85, 0.45)" stroke-width="11" />
+                    <circle id="ringFree" data-circle="free" class="mini-donut-arc" cx="50" cy="50" r="38" fill="transparent"
+                      stroke="#10b981" stroke-width="11" stroke-linecap="round"
+                      stroke-dasharray="0 238.76" />
+                  </svg>
+                  <span id="ringFreePctCenter" class="absolute text-[11px] font-extrabold text-emerald-400 pointer-events-none">0.0%</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#10b981]"></span>
+                    <span class="text-xs sm:text-sm font-bold text-white truncate">হাতে থাকা লিকুইড / অবশিষ্ট</span>
+                  </div>
+                  <div id="ringFreeAmt" class="text-base font-extrabold text-emerald-400 mt-0.5">৳0</div>
+                  <div id="ringFreeNote" class="text-[11px] text-slate-400">অবশিষ্ট সারপ্লাস আয়ের 0.0%</div>
+                </div>
+              </div>
+
             </div>
           </div>
 
-          <!-- Deficit Alert Banner -->
           <div id="deficitAlert" class="hidden mt-4 p-3 rounded-xl bg-rose-500/15 border border-rose-500/40 text-rose-200 text-xs flex items-start gap-2.5">
             <i class="fa-solid fa-triangle-exclamation text-rose-400 mt-0.5"></i>
             <div>
-              <strong>সতর্কতা:</strong> মোট খরচ ও ফিক্সড ইনভেস্টমেন্ট মাসিক আয়ের চেয়ে বেশি হয়ে গেছে। স্লাইডার বা ইনকাম অ্যাডজাস্ট করুন।
+              <strong>সতর্কতা:</strong> খরচ, ধার শোধ ও ফিক্সড ইনভেস্টমেন্ট মিলিয়ে মোট আয়ের চেয়ে বেশি হয়ে গেছে।
             </div>
           </div>
 
-          <!-- Graph Image Copy & Download Buttons -->
           <div class="mt-5 grid grid-cols-2 gap-2.5">
             <button id="copyGraphBtn" type="button"
-              class="py-3 px-4 rounded-2xl bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-200 border border-indigo-400/40 font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer">
+              class="py-3 px-4 rounded-2xl bg-fuchsia-500/20 hover:bg-fuchsia-500/30 text-fuchsia-200 border border-fuchsia-400/45 font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2 cursor-pointer">
               <i class="fa-solid fa-camera"></i>
               Copy Final Graph
             </button>
@@ -593,33 +714,87 @@
             </button>
           </div>
 
-          <!-- User-Triggered Mail Button -->
           <button id="sendMailBottomBtn" type="button"
-            class="mt-3 w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-500/20 transition flex items-center justify-center gap-2 cursor-pointer">
+            class="mt-3 w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-400/25 transition flex items-center justify-center gap-2 cursor-pointer">
             <i class="fa-solid fa-paper-plane"></i>
             Send via Mail
           </button>
         </div>
       </div>
     </div>
+
+    <!-- CURRENT MONTH LIVE UPS & DOWNS / MULTI-COLOR CASHFLOW GRAPH -->
+    <section class="glass-card rounded-3xl p-6 mt-8">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4 mb-5 border-b border-slate-700/60">
+        <div>
+          <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-fuchsia-500/15 text-fuchsia-300 border border-fuchsia-400/30 text-[11px] font-bold mb-1.5">
+            <i class="fa-solid fa-bolt"></i>
+            SHINY LIVE CASHFLOW WAVE
+          </div>
+          <h2 class="text-lg sm:text-xl font-bold text-white">এই মাসের আয়, খরচ, ধার শোধ, ফিক্সড ইনভেস্ট ও অবশিষ্টের লাইভ গ্রাফ</h2>
+          <p class="text-xs text-slate-400 mt-0.5">
+            প্রতিটি ধাপে আলাদা রঙ ও লাইভ অ্যানিমেশন—সহজেই বুঝবেন এই মাসে আপনি <span class="text-emerald-400 font-bold">Up / পজিটিভ</span> না <span class="text-red-400 font-bold">Down / চাপে</span> আছেন
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 text-[11px] font-bold">
+          <span class="px-2.5 py-1 rounded-lg bg-cyan-500/15 text-cyan-300 border border-cyan-400/35">Income</span>
+          <span class="px-2.5 py-1 rounded-lg bg-red-500/15 text-red-400 border border-red-500/35">খরচ</span>
+          <span class="px-2.5 py-1 rounded-lg bg-rose-500/15 text-rose-400 border border-rose-500/35">ধার শোধ</span>
+          <span class="px-2.5 py-1 rounded-lg bg-sky-500/15 text-sky-300 border border-sky-400/35">Fixed Inv</span>
+          <span id="waveStatusPill" class="px-2.5 py-1 rounded-lg bg-emerald-500/15 text-emerald-300 border border-emerald-400/35">হাতে অবশিষ্ট</span>
+        </div>
+      </div>
+
+      <div class="rounded-2xl bg-[#080f1e] border border-slate-800 p-4 sm:p-5">
+        <div id="currentMonthGraphReadout" class="text-xs sm:text-sm font-bold text-slate-200 mb-4">
+          মোট আয় ৳0 থেকে খরচ, ধার শোধ ও ফিক্সড ইনভেস্টমেন্ট বাদ দিলে হাতে থাকে ৳0
+        </div>
+
+        <div class="mb-6">
+          <div class="flex justify-between text-[11px] font-semibold text-slate-400 mb-1.5">
+            <span>মোট আয়ের বিপরীতে বণ্টন (Animated Flow)</span>
+            <span id="flowSummaryPct" class="text-emerald-300 font-bold">0.0% Liquid</span>
+          </div>
+          <div class="w-full h-5 rounded-full bg-slate-900 overflow-hidden flex border border-slate-700/70 p-0.5 gap-0.5">
+            <div id="flowBarExp" class="flow-bar-anim h-full bg-red-500 rounded-l-full" style="width: 0%;" title="খরচ"></div>
+            <div id="flowBarDebt" class="flow-bar-anim h-full bg-rose-600" style="width: 0%;" title="ধার শোধ"></div>
+            <div id="flowBarFixed" class="flow-bar-anim h-full bg-sky-400" style="width: 0%;" title="Fixed Investment"></div>
+            <div id="flowBarFree" class="flow-bar-anim h-full bg-emerald-400 rounded-r-full" style="width: 0%;" title="হাতে থাকা অবশিষ্ট"></div>
+          </div>
+        </div>
+
+        <svg id="currentMonthWaveSvg" class="w-full min-w-[600px] h-56 select-none overflow-x-auto" viewBox="0 0 820 220"></svg>
+      </div>
+    </section>
   </main>
 
   <script>
+    // ONLY YOU set this in GitHub (e.g., './logo.png' or a data:image/... URI). Visitors cannot change it.
+    const LOCKED_LOGO_URL = './Logo.png';
+
     const MAIL_TO = 'omitdebnath55555@gmail.com';
-    const CIRCUMFERENCE = 2 * Math.PI * 76;
+    const RING_CIRCUMFERENCE = 2 * Math.PI * 38;
     const fmtBDT = (n) => '৳' + Math.round(Number(n) || 0).toLocaleString('en-US');
     const fmtPct = (part, whole) => whole > 0 ? ((part / whole) * 100).toFixed(1) + '%' : '0.0%';
 
     const state = {
+      extraIncomes: [],
+      debtRepay: 0,
+      debtMax: 150000,
       expenses: [
-        { id: 'family', label: 'ফ্যামিলি ও প্রিয়জন', amount: 0, max: 120000, accent: '#fbbf24' },
-        { id: 'living', label: 'নিজের লিভিং কস্ট', amount: 0, max: 80000, accent: '#fbbf24' }
+        { id: 'family', label: 'ফ্যামিলি ও প্রিয়জন', amount: 0, max: 120000, accent: '#ef4444' },
+        { id: 'living', label: 'নিজের লিভিং কস্ট', amount: 0, max: 80000, accent: '#ef4444' }
       ],
       investments: [
-        { id: 'flat', label: 'ফ্ল্যাট ইনস্টলমেন্ট', amount: 0, max: 200000, accent: '#3b82f6' },
-        { id: 'dps', label: '২ ব্যাংকের DPS', amount: 0, max: 100000, accent: '#3b82f6' }
+        { id: 'flat', label: 'ফ্ল্যাট ইনস্টলমেন্ট', amount: 0, max: 200000, accent: '#38bdf8' },
+        { id: 'dps', label: '২ ব্যাংকের DPS', amount: 0, max: 100000, accent: '#38bdf8' }
       ]
     };
+
+    let hoveredCircle = null;
+    let lockedCircle = null;
+    let lastTotals = { baseInc: 0, prevExtra: 0, extraSrcSum: 0, inc: 0, trueExp: 0, debtRepay: 0, fixedInv: 0, freeSurplus: 0, totalSavInv: 0 };
 
     function showToast(msg) {
       const t = document.getElementById('toast');
@@ -627,6 +802,63 @@
       t.classList.remove('hidden');
       clearTimeout(window.__toastTimer);
       window.__toastTimer = setTimeout(() => t.classList.add('hidden'), 2800);
+    }
+
+    function initLockedLogo() {
+      let localOwnerLogo = '';
+      try { localOwnerLogo = localStorage.getItem('OMIT_LOCKED_LOGO') || ''; } catch {}
+      const src = (LOCKED_LOGO_URL || localOwnerLogo || '').trim();
+      if (!src) return;
+      const hImg = document.getElementById('brandLogoImg');
+      const hPh = document.getElementById('brandLogoPlaceholder');
+      const gImg = document.getElementById('graphLogoImg');
+      hImg.src = src;
+      hImg.classList.remove('hidden');
+      hPh.classList.add('hidden');
+      gImg.src = src;
+      gImg.classList.remove('hidden');
+    }
+
+    function renderExtraIncomes() {
+      const box = document.getElementById('extraIncomeItemsContainer');
+      box.innerHTML = '';
+      state.extraIncomes.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'glass-subcard rounded-xl px-3 py-2 flex items-center justify-between gap-2';
+        row.innerHTML = `
+          <span class="text-xs font-semibold text-slate-200 truncate">${item.label}</span>
+          <div class="flex items-center gap-2">
+            <div class="flex items-center bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 w-28">
+              <span class="text-xs font-bold text-emerald-400 mr-1">৳</span>
+              <input type="number" min="0" value="${item.amount}" data-extra-id="${item.id}"
+                class="extra-src-num w-full bg-transparent text-right text-xs font-extrabold text-white outline-none" />
+            </div>
+            <button type="button" data-del-extra="${item.id}" title="Remove"
+              class="del-extra text-slate-500 hover:text-rose-400 text-xs px-1 transition cursor-pointer">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        `;
+        box.appendChild(row);
+      });
+
+      document.querySelectorAll('.extra-src-num').forEach(inp => {
+        inp.addEventListener('input', (e) => {
+          const item = state.extraIncomes.find(x => x.id === e.target.dataset.extraId);
+          if (item) {
+            item.amount = Math.max(0, Number(e.target.value) || 0);
+            updateDashboard();
+          }
+        });
+      });
+
+      document.querySelectorAll('.del-extra').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.extraIncomes = state.extraIncomes.filter(x => x.id !== btn.dataset.delExtra);
+          renderExtraIncomes();
+          updateDashboard();
+        });
+      });
     }
 
     function renderItems() {
@@ -705,97 +937,240 @@
     }
 
     function getTotals() {
-      const inc = Math.max(0, Number(document.getElementById('incomeInput').value) || 0);
+      const baseInc = Math.max(0, Number(document.getElementById('incomeInput').value) || 0);
+      const prevExtra = Math.max(0, Number(document.getElementById('prevExtraCarryInput').value) || 0);
+      const extraSrcSum = state.extraIncomes.reduce((s, x) => s + (Number(x.amount) || 0), 0);
+      const inc = baseInc + prevExtra + extraSrcSum;
+
       const trueExp = state.expenses.reduce((s, x) => s + (Number(x.amount) || 0), 0);
+      const debtRepay = Math.max(0, Number(state.debtRepay) || 0);
       const fixedInv = state.investments.reduce((s, x) => s + (Number(x.amount) || 0), 0);
-      const freeSurplus = inc - trueExp - fixedInv;
-      const totalSavInv = inc - trueExp;
-      return { inc, trueExp, fixedInv, freeSurplus, totalSavInv };
+      const freeSurplus = inc - trueExp - debtRepay - fixedInv;
+      const totalSavInv = fixedInv + freeSurplus;
+      return { baseInc, prevExtra, extraSrcSum, inc, trueExp, debtRepay, fixedInv, freeSurplus, totalSavInv };
+    }
+
+    function updateCircleHighlight() {
+      const active = hoveredCircle || lockedCircle;
+      const bannerText = document.getElementById('focusBannerText');
+      const { inc, trueExp, debtRepay, fixedInv, freeSurplus } = lastTotals;
+
+      document.querySelectorAll('.circle-card').forEach(card => {
+        card.classList.toggle('active-ring-card', card.dataset.circle === active);
+      });
+      document.querySelectorAll('.mini-donut-arc').forEach(arc => {
+        arc.classList.toggle('is-selected', arc.dataset.circle === active);
+      });
+
+      bannerText.classList.remove('stat-pop');
+      void bannerText.offsetWidth;
+      bannerText.classList.add('stat-pop');
+
+      if (active === 'exp') {
+        bannerText.className = 'font-extrabold text-red-400 stat-pop';
+        bannerText.textContent = `খরচ: ${fmtPct(trueExp, inc)} (${fmtBDT(trueExp)})`;
+      } else if (active === 'debt') {
+        bannerText.className = 'font-extrabold text-rose-400 stat-pop';
+        bannerText.textContent = `গত মাসের ধার শোধ: ${fmtPct(debtRepay, inc)} (${fmtBDT(debtRepay)})`;
+      } else if (active === 'fixed') {
+        bannerText.className = 'font-extrabold text-sky-300 stat-pop';
+        bannerText.textContent = `ফিক্সড ইনভেস্ট: ${fmtPct(fixedInv, inc)} (${fmtBDT(fixedInv)})`;
+      } else {
+        bannerText.className = 'font-extrabold text-emerald-400 stat-pop';
+        bannerText.textContent = `হাতে অবশিষ্ট: ${fmtPct(freeSurplus, inc)} (${fmtBDT(freeSurplus)})`;
+      }
+    }
+
+    function setCircleSelection(circleKey, mode = 'hover') {
+      if (mode === 'hover') {
+        hoveredCircle = circleKey;
+        updateCircleHighlight();
+      } else {
+        lockedCircle = lockedCircle === circleKey ? null : circleKey;
+        updateCircleHighlight();
+      }
+    }
+
+    function renderCurrentMonthWave() {
+      const { inc, trueExp, debtRepay, fixedInv, freeSurplus } = lastTotals;
+      const afterExp = inc - trueExp;
+      const afterDebt = afterExp - debtRepay;
+      const afterFixed = afterDebt - fixedInv;
+
+      const pill = document.getElementById('waveStatusPill');
+      if (freeSurplus < 0) {
+        pill.className = 'px-2.5 py-1 rounded-lg bg-red-500/20 text-red-300 border border-red-500/40';
+        pill.textContent = 'Down / ঘাটতি চাপে';
+      } else if (freeSurplus > 0) {
+        pill.className = 'px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-400/40';
+        pill.textContent = 'Up / হাতে অবশিষ্ট আছে';
+      } else {
+        pill.className = 'px-2.5 py-1 rounded-lg bg-cyan-500/15 text-cyan-300 border border-cyan-400/30';
+        pill.textContent = 'Neutral / ব্যালেন্সড';
+      }
+
+      document.getElementById('currentMonthGraphReadout').innerHTML =
+        `মোট আয় <span class="text-cyan-300">${fmtBDT(inc)}</span> → খরচ <span class="text-red-400">-${fmtBDT(trueExp)}</span> → ধার শোধ <span class="text-rose-400">-${fmtBDT(debtRepay)}</span> → Fixed Inv <span class="text-sky-300">-${fmtBDT(fixedInv)}</span> → হাতে অবশিষ্ট <span class="${freeSurplus >= 0 ? 'text-emerald-400' : 'text-red-400'}">${fmtBDT(freeSurplus)}</span>`;
+
+      const freePctNum = inc > 0 ? (freeSurplus / inc) * 100 : 0;
+      document.getElementById('flowSummaryPct').textContent = `${freePctNum.toFixed(1)}% Liquid`;
+
+      const denom = Math.max(inc, trueExp + debtRepay + fixedInv + Math.max(0, freeSurplus), 1);
+      document.getElementById('flowBarExp').style.width = ((Math.max(0, trueExp) / denom) * 100).toFixed(1) + '%';
+      document.getElementById('flowBarDebt').style.width = ((Math.max(0, debtRepay) / denom) * 100).toFixed(1) + '%';
+      document.getElementById('flowBarFixed').style.width = ((Math.max(0, fixedInv) / denom) * 100).toFixed(1) + '%';
+      document.getElementById('flowBarFree').style.width = ((Math.max(0, freeSurplus) / denom) * 100).toFixed(1) + '%';
+
+      const steps = [
+        { label: '1. Total Income', val: inc, color: '#22d3ee', tag: 'আয়' },
+        { label: '2. খরচ বাদে', val: afterExp, color: '#ef4444', tag: 'খরচ (-)' },
+        { label: '3. ধার শোধ বাদে', val: afterDebt, color: '#f43f5e', tag: 'ধার (-)' },
+        { label: '4. Fixed বাদে', val: afterFixed, color: '#38bdf8', tag: 'Fixed (-)' },
+        { label: '5. হাতে অবশিষ্ট', val: freeSurplus, color: freeSurplus >= 0 ? '#10b981' : '#ef4444', tag: freeSurplus >= 0 ? 'Up / অবশিষ্ট' : 'Down / ঘাটতি' }
+      ];
+
+      const svg = document.getElementById('currentMonthWaveSvg');
+      const allVals = steps.map(s => s.val);
+      const minV = Math.min(0, ...allVals);
+      const maxV = Math.max(10000, ...allVals);
+      const span = Math.max(1, maxV - minV);
+
+      const padL = 72;
+      const padR = 36;
+      const padT = 26;
+      const padB = 42;
+      const w = 820 - padL - padR;
+      const h = 220 - padT - padB;
+
+      const xAt = (i) => padL + (i / (steps.length - 1)) * w;
+      const yAt = (v) => padT + ((maxV - v) / span) * h;
+
+      let gHtml = '';
+      for (let g = 0; g <= 3; g++) {
+        const gy = padT + (g / 3) * h;
+        const gv = maxV - (g / 3) * span;
+        gHtml += `<line x1="${padL}" y1="${gy.toFixed(1)}" x2="${820 - padR}" y2="${gy.toFixed(1)}" stroke="rgba(51,65,85,0.45)" stroke-dasharray="4 4" />`;
+        gHtml += `<text x="${padL - 10}" y="${(gy + 4).toFixed(1)}" fill="#94a3b8" font-size="10" text-anchor="end">${fmtBDT(gv)}</text>`;
+      }
+
+      for (let i = 0; i < steps.length - 1; i++) {
+        const x1 = xAt(i);
+        const y1 = yAt(steps[i].val);
+        const x2 = xAt(i + 1);
+        const y2 = yAt(steps[i + 1].val);
+        const segColor = steps[i + 1].color;
+        gHtml += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${segColor}" stroke-width="4" stroke-linecap="round" />`;
+      }
+
+      steps.forEach((st, i) => {
+        const cx = xAt(i);
+        const cy = yAt(st.val);
+        gHtml += `
+          <g>
+            <circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="7" fill="#080f1e" stroke="${st.color}" stroke-width="3.5" class="pulse-node" />
+            <text x="${cx.toFixed(1)}" y="${Math.max(14, cy - 12).toFixed(1)}" fill="${st.color}" font-size="11" font-weight="800" text-anchor="middle">${fmtBDT(st.val)}</text>
+            <text x="${cx.toFixed(1)}" y="${220 - 18}" fill="#e2e8f0" font-size="11" font-weight="700" text-anchor="middle">${st.label}</text>
+            <text x="${cx.toFixed(1)}" y="${220 - 5}" fill="#94a3b8" font-size="9.5" text-anchor="middle">${st.tag}</text>
+          </g>
+        `;
+      });
+
+      svg.innerHTML = gHtml;
     }
 
     function updateDashboard() {
-      const { inc, trueExp, fixedInv, freeSurplus, totalSavInv } = getTotals();
+      const { prevExtra, extraSrcSum, inc, trueExp, debtRepay, fixedInv, freeSurplus, totalSavInv } = getTotals();
+      lastTotals = { prevExtra, extraSrcSum, inc, trueExp, debtRepay, fixedInv, freeSurplus, totalSavInv };
+
+      document.getElementById('extraSourcesTotalBadge').textContent = `+${fmtBDT(prevExtra + extraSrcSum)}`;
+      document.getElementById('totalCombinedIncomeDisplay').textContent = fmtBDT(inc);
+
+      const expPctStr = inc > 0 ? ((trueExp / inc) * 100).toFixed(1) + '%' : '0.0%';
+      const debtPctStr = inc > 0 ? ((debtRepay / inc) * 100).toFixed(1) + '%' : '0.0%';
+      const fixedPctStr = inc > 0 ? ((fixedInv / inc) * 100).toFixed(1) + '%' : '0.0%';
+      const freePctStr = inc > 0 ? ((freeSurplus / inc) * 100).toFixed(1) + '%' : '0.0%';
 
       document.getElementById('kpiTrueExp').textContent = fmtBDT(trueExp);
-      document.getElementById('kpiTrueExpPct').textContent = fmtPct(trueExp, inc);
+      document.getElementById('kpiTrueExpPct').textContent = expPctStr;
+
+      document.getElementById('kpiDebtRepay').textContent = fmtBDT(debtRepay);
+      document.getElementById('kpiDebtRepayPct').textContent = debtPctStr;
 
       document.getElementById('kpiFixedInv').textContent = fmtBDT(fixedInv);
-      document.getElementById('kpiFixedInvPct').textContent = fmtPct(fixedInv, inc);
+      document.getElementById('kpiFixedInvPct').textContent = fixedPctStr;
 
       const freeEl = document.getElementById('kpiFreeSurplus');
       freeEl.textContent = fmtBDT(freeSurplus);
-      freeEl.className = 'text-2xl sm:text-3xl font-extrabold tracking-tight ' + (freeSurplus >= 0 ? 'text-emerald-400' : 'text-rose-400');
-      document.getElementById('kpiFreeSurplusPct').textContent = fmtPct(freeSurplus, inc);
-
-      document.getElementById('kpiTotalSavRate').textContent = fmtPct(totalSavInv, inc);
-      document.getElementById('kpiTotalSavAmt').textContent = fmtBDT(totalSavInv);
+      freeEl.className = 'text-2xl sm:text-3xl font-extrabold tracking-tight ' + (freeSurplus >= 0 ? 'text-emerald-400' : 'text-red-400');
+      document.getElementById('kpiFreeSurplusPct').textContent = freePctStr;
 
       document.getElementById('catExpTotal').textContent = fmtBDT(trueExp);
-      document.getElementById('catExpPct').textContent = `আয়ের ${fmtPct(trueExp, inc)}`;
+      document.getElementById('catExpPct').textContent = `আয়ের ${expPctStr}`;
+
+      document.getElementById('catDebtTotal').textContent = fmtBDT(debtRepay);
+      document.getElementById('catDebtPct').textContent = `আয়ের ${debtPctStr}`;
 
       document.getElementById('catInvTotal').textContent = fmtBDT(fixedInv);
-      document.getElementById('catInvPct').textContent = `আয়ের ${fmtPct(fixedInv, inc)}`;
+      document.getElementById('catInvPct').textContent = `আয়ের ${fixedPctStr}`;
 
       document.getElementById('graphIncomeLabel').textContent = fmtBDT(inc);
-      document.getElementById('barStatusLabel').textContent = inc > 0 ? 'Live Calculated' : 'Awaiting Input';
 
-      document.getElementById('legExpAmt').textContent = fmtBDT(trueExp);
-      document.getElementById('legExpPct').textContent = fmtPct(trueExp, inc);
+      const maxOutgoings = Math.max(trueExp, debtRepay, fixedInv, Math.max(0, freeSurplus), 1);
+      const base = inc > 0 ? inc : maxOutgoings;
 
-      document.getElementById('legFixedAmt').textContent = fmtBDT(fixedInv);
-      document.getElementById('legFixedPct').textContent = fmtPct(fixedInv, inc);
+      const pExp = Math.min(1, Math.max(0, trueExp / base));
+      const pDebt = Math.min(1, Math.max(0, debtRepay / base));
+      const pFixed = Math.min(1, Math.max(0, fixedInv / base));
+      const pFree = Math.min(1, Math.max(0, freeSurplus / base));
 
-      document.getElementById('legFreeAmt').textContent = fmtBDT(freeSurplus);
-      document.getElementById('legFreePct').textContent = fmtPct(freeSurplus, inc);
+      document.getElementById('ringExp').setAttribute('stroke-dasharray', `${pExp * RING_CIRCUMFERENCE} ${RING_CIRCUMFERENCE}`);
+      document.getElementById('ringDebt').setAttribute('stroke-dasharray', `${pDebt * RING_CIRCUMFERENCE} ${RING_CIRCUMFERENCE}`);
+      document.getElementById('ringFixed').setAttribute('stroke-dasharray', `${pFixed * RING_CIRCUMFERENCE} ${RING_CIRCUMFERENCE}`);
+      document.getElementById('ringFree').setAttribute('stroke-dasharray', `${pFree * RING_CIRCUMFERENCE} ${RING_CIRCUMFERENCE}`);
 
-      document.getElementById('donutCenterPct').textContent = fmtPct(totalSavInv, inc);
-      document.getElementById('donutCenterAmt').textContent = fmtBDT(totalSavInv);
+      document.getElementById('ringExpPctCenter').textContent = expPctStr;
+      document.getElementById('ringDebtPctCenter').textContent = debtPctStr;
+      document.getElementById('ringFixedPctCenter').textContent = fixedPctStr;
+      document.getElementById('ringFreePctCenter').textContent = freePctStr;
+
+      document.getElementById('ringExpAmt').textContent = fmtBDT(trueExp);
+      document.getElementById('ringDebtAmt').textContent = fmtBDT(debtRepay);
+      document.getElementById('ringFixedAmt').textContent = fmtBDT(fixedInv);
+      document.getElementById('ringFreeAmt').textContent = fmtBDT(freeSurplus);
+
+      document.getElementById('ringExpNote').textContent = `আয়ের ${expPctStr} খরচ হচ্ছে`;
+      document.getElementById('ringDebtNote').textContent = `ধার শোধ আয়ের ${debtPctStr}`;
+      document.getElementById('ringFixedNote').textContent = `Flat + DPS আয়ের ${fixedPctStr}`;
+      document.getElementById('ringFreeNote').textContent = freeSurplus >= 0
+        ? `হাতে থাকা অবশিষ্ট আয়ের ${freePctStr}`
+        : `ঘাটতি (${freePctStr}) — খরচে চাপ আছে`;
 
       const alertBox = document.getElementById('deficitAlert');
       if (freeSurplus < 0) alertBox.classList.remove('hidden');
       else alertBox.classList.add('hidden');
 
-      const denom = inc > 0 ? inc : (trueExp + fixedInv + Math.max(0, freeSurplus));
-      const pExp = denom > 0 ? Math.max(0, trueExp / denom) : 0;
-      const pFixed = denom > 0 ? Math.max(0, fixedInv / denom) : 0;
-      const pFree = denom > 0 ? Math.max(0, freeSurplus / denom) : 0;
-
-      document.getElementById('segExp').style.width = (pExp * 100).toFixed(1) + '%';
-      document.getElementById('segFixed').style.width = (pFixed * 100).toFixed(1) + '%';
-      document.getElementById('segFree').style.width = (pFree * 100).toFixed(1) + '%';
-
-      const dExp = pExp * CIRCUMFERENCE;
-      const dFixed = pFixed * CIRCUMFERENCE;
-      const dFree = pFree * CIRCUMFERENCE;
-
-      const cExp = document.getElementById('donutExp');
-      const cFixed = document.getElementById('donutFixed');
-      const cFree = document.getElementById('donutFree');
-
-      cExp.setAttribute('stroke-dasharray', `${dExp} ${CIRCUMFERENCE}`);
-      cExp.setAttribute('stroke-dashoffset', `0`);
-
-      cFixed.setAttribute('stroke-dasharray', `${dFixed} ${CIRCUMFERENCE}`);
-      cFixed.setAttribute('stroke-dashoffset', `${-dExp}`);
-
-      cFree.setAttribute('stroke-dasharray', `${dFree} ${CIRCUMFERENCE}`);
-      cFree.setAttribute('stroke-dashoffset', `${-(dExp + dFixed)}`);
+      updateCircleHighlight();
+      renderCurrentMonthWave();
     }
 
     function buildMailText() {
-      const { inc, trueExp, fixedInv, freeSurplus, totalSavInv } = getTotals();
+      const { baseInc, prevExtra, extraSrcSum, inc, trueExp, debtRepay, fixedInv, freeSurplus, totalSavInv } = getTotals();
       return [
         'Prepared by "OMIT DEBNATH"',
-        `মাসিক আয়: ${fmtBDT(inc)}`,
-        `আসল মাসিক খরচ: ${fmtBDT(trueExp)} (${fmtPct(trueExp, inc)})`,
-        `ফিক্সড ইনভেস্টমেন্ট (ফ্ল্যাট + DPS): ${fmtBDT(fixedInv)} (${fmtPct(fixedInv, inc)})`,
-        `নিট ফ্রি সারপ্লাস: ${fmtBDT(freeSurplus)} (${fmtPct(freeSurplus, inc)})`,
+        `মূল মাসিক আয়: ${fmtBDT(baseInc)}`,
+        `গত মাসের এক্সট্রা আয় থেকে অবশিষ্ট: ${fmtBDT(prevExtra)}`,
+        `অতিরিক্ত সোর্স আয়: ${fmtBDT(extraSrcSum)}`,
+        `মোট মাসিক আয়: ${fmtBDT(inc)}`,
+        `খরচ (True Expense): ${fmtBDT(trueExp)} (${fmtPct(trueExp, inc)})`,
+        `গত মাসের ধার পরিশোধ: ${fmtBDT(debtRepay)} (${fmtPct(debtRepay, inc)})`,
+        `ফিক্সড ইনভেস্টমেন্ট (ফ্ল্যাট / DPS, etc.): ${fmtBDT(fixedInv)} (${fmtPct(fixedInv, inc)})`,
+        `হাতে থাকা লিকুইড / অবশিষ্ট: ${fmtBDT(freeSurplus)} (${fmtPct(freeSurplus, inc)})`,
         `মোট সেভিংস + ইনভেস্টমেন্ট: ${fmtBDT(totalSavInv)} (${fmtPct(totalSavInv, inc)})`
       ].join('\n');
     }
 
     function sendToMailOnClick() {
-      const subject = encodeURIComponent('Monthly Income, True Expense & Investment Calculation');
+      const subject = encodeURIComponent('Monthly Income, True Expense, Debt & Investment Calculation');
       const body = encodeURIComponent(buildMailText());
       window.location.href = `mailto:${MAIL_TO}?subject=${subject}&body=${body}`;
       showToast('Opening mail app on your click...');
@@ -803,7 +1178,7 @@
 
     async function captureGraphCanvas() {
       const area = document.getElementById('graphCaptureArea');
-      return await html2canvas(area, { backgroundColor: '#0b1222', scale: 2 });
+      return await html2canvas(area, { backgroundColor: '#0e1933', scale: 2, useCORS: true });
     }
 
     async function copyGraphImage() {
@@ -885,17 +1260,67 @@
         (amt * rate).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ' + to;
     }
 
+    document.getElementById('debtRepayRange').addEventListener('input', (e) => {
+      state.debtRepay = Number(e.target.value) || 0;
+      document.getElementById('debtRepayNum').value = state.debtRepay;
+      updateDashboard();
+    });
+    document.getElementById('debtRepayNum').addEventListener('input', (e) => {
+      const val = Math.max(0, Number(e.target.value) || 0);
+      state.debtRepay = val;
+      if (val > state.debtMax) state.debtMax = val;
+      const rng = document.getElementById('debtRepayRange');
+      rng.max = state.debtMax;
+      rng.value = val;
+      updateDashboard();
+    });
+
+    document.querySelectorAll('.circle-card, .mini-donut-arc').forEach(el => {
+      const key = el.dataset.circle;
+      el.addEventListener('mouseenter', () => setCircleSelection(key, 'hover'));
+      el.addEventListener('mouseleave', () => setCircleSelection(null, 'hover'));
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        setCircleSelection(key, 'click');
+      });
+    });
+
     document.getElementById('incomeInput').addEventListener('input', updateDashboard);
+    document.getElementById('prevExtraCarryInput').addEventListener('input', updateDashboard);
     document.getElementById('sendMailTopBtn').addEventListener('click', sendToMailOnClick);
     document.getElementById('sendMailBottomBtn').addEventListener('click', sendToMailOnClick);
     document.getElementById('copyGraphTopBtn').addEventListener('click', copyGraphImage);
     document.getElementById('copyGraphBtn').addEventListener('click', copyGraphImage);
     document.getElementById('downloadGraphBtn').addEventListener('click', downloadGraphImage);
 
+    document.getElementById('addExtraIncomeForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('newExtraSrcName').value.trim();
+      const amt = Math.max(0, Number(document.getElementById('newExtraSrcAmt').value) || 0);
+      if (!name) return;
+      state.extraIncomes.push({
+        id: 'ext_' + Date.now(),
+        label: name,
+        amount: amt
+      });
+      document.getElementById('newExtraSrcName').value = '';
+      document.getElementById('newExtraSrcAmt').value = '';
+      renderExtraIncomes();
+      updateDashboard();
+    });
+
     document.getElementById('clearAllBtn').addEventListener('click', () => {
+      lockedCircle = null;
+      hoveredCircle = null;
       document.getElementById('incomeInput').value = '';
+      document.getElementById('prevExtraCarryInput').value = '';
+      state.extraIncomes = [];
+      state.debtRepay = 0;
+      document.getElementById('debtRepayNum').value = 0;
+      document.getElementById('debtRepayRange').value = 0;
       state.expenses.forEach(x => x.amount = 0);
       state.investments.forEach(x => x.amount = 0);
+      renderExtraIncomes();
       renderItems();
       updateDashboard();
       showToast('সব ফিল্ড ক্লিয়ার করা হয়েছে');
@@ -918,7 +1343,7 @@
         label: name,
         amount: amt,
         max: Math.max(100000, amt),
-        accent: '#fbbf24'
+        accent: '#ef4444'
       });
       document.getElementById('newExpName').value = '';
       document.getElementById('newExpAmt').value = '';
@@ -936,7 +1361,7 @@
         label: name,
         amount: amt,
         max: Math.max(150000, amt),
-        accent: '#3b82f6'
+        accent: '#38bdf8'
       });
       document.getElementById('newInvName').value = '';
       document.getElementById('newInvAmt').value = '';
@@ -970,7 +1395,7 @@
       const bdtVal = Math.round(amt * getPairRate(from, 'BDT'));
       document.getElementById('incomeInput').value = bdtVal;
       updateDashboard();
-      showToast(`মাসিক আয় ${fmtBDT(bdtVal)} সেট করা হয়েছে`);
+      showToast(`মূল আয় ${fmtBDT(bdtVal)} সেট করা হয়েছে`);
     });
 
     ['fxFrom', 'fxTo'].forEach(id => document.getElementById(id).addEventListener('change', () => {
@@ -980,6 +1405,8 @@
     ['fxAmount', 'fxRateInput'].forEach(id => document.getElementById(id).addEventListener('input', calculateFx));
     document.getElementById('refreshFxBtn').addEventListener('click', syncLiveFx);
 
+    initLockedLogo();
+    renderExtraIncomes();
     renderItems();
     updateDashboard();
     updateFxRateInputFromPair();
